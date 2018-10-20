@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact={true} path="/" component={HomeScreen} />
+          <Route exact={true} path="/:provider" component={HomeScreen} />
           <Route component={PageNotFoundScreen} />
         </Switch>
       </BrowserRouter>
