@@ -1,14 +1,85 @@
 .HomeScreenContainer {
   text-align: center;
-  background-color: black;
+  background-color: white;
   color: white;
   min-height: 100%;
 
-  h1 {
-    margin-top: 0;
+  .logo {
+    height: 10rem;
   }
 
-  .Provider-container {
-    display: inline-block;
+  h1 {
+    margin-top: 0;
+    background-color: #233233;
+  }
+
+  .providers {
+    padding: 0 60px;
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax((224px), 3fr));
+      box-sizing: border-box;
+      padding: 24px;
+      grid-gap: 24px;
+      .Provider-container {
+        grid-row-start: span 1;
+        display: inline-block;
+        width: 200px;
+        height: 200px;
+        box-shadow: 1px 1px 5px #afafaf;
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+
+        .checkmark {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(128, 128, 128, 0.3);
+          pointer-events: none;
+          justify-content: center;
+          align-items: center;
+
+          svg {
+            fill: #29dc1a;
+            background: white;
+            border-radius: 50%;
+          }
+        }
+
+        input {
+          display: none;
+          position: relative;
+          bottom: 40px;
+          width: 40px;
+          height: 40px;
+        }
+
+        input:checked + label .checkmark {
+          display: flex;
+        }
+
+        label {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          cursor: pointer;
+        }
+      }
+
+      button {
+        margin-top: 60px;
+        font-size: 40px;
+        grid-row: span 1;
+        grid-column-start: 2;
+        grid-column-end: 3;
+      }
+    }
   }
 }
