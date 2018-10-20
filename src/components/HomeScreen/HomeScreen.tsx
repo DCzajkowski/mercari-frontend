@@ -14,40 +14,50 @@ class HomeScreen extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
 
-    this.getCodeFromOAuth = this.getCodeFromOAuth.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.makePopUp = this.makePopUp.bind(this);
     this.getCodeFromPopUp = this.getCodeFromPopUp.bind(this);
+    this.getOAuthCode = this.getOAuthCode.bind(this);
   }
 
-  public getCodeFromOAuth(e: any) {
-    const popup = this.makePopUp();
-
-    if (popup != null) {
-      return new Promise((resolve, reject) => {
-        const tryInterval = window.setInterval(() => {
-          const code = this.getCodeFromPopUp(popup);
-
-          if (code) {
-            resolve(code);
-            this.closePopUp(tryInterval, popup);
+  public handleClick(providerInfo: { url: string; name: string }) {
+    const { url, name } = providerInfo;
+    const popup = this.makePopUp(url);
+    if (popup) {
+      this.getOAuthCode(popup).then(async (code: string) => {
+        const response = await fetch(
+          `https://sharatin.gq/api/login/${name}?code=${code}`,
+          {
+            headers: {
+              Accept: 'application/json'
+            }
           }
-
-          if (_.get(popup, 'closed', false)) {
-            reject(null);
-            this.closePopUp(tryInterval, popup);
-          }
-        }, 100);
+        );
+        // tslint:disable-next-line:no-console
+        console.log(response);
       });
     }
-    return null;
   }
 
-  public makePopUp = () => {
-    return window.open(
-      'http://localhost:3000/amazon',
-      'slackLogin',
-      'width=800, height=600'
-    );
+  public getOAuthCode = (popup: Window) =>
+    new Promise((resolve, reject) => {
+      const tryInterval = window.setInterval(() => {
+        const code = this.getCodeFromPopUp(popup);
+
+        if (code) {
+          resolve(code);
+          this.closePopUp(tryInterval, popup);
+        }
+
+        if (_.get(popup, 'closed', false)) {
+          reject(null);
+          this.closePopUp(tryInterval, popup);
+        }
+      }, 100);
+    });
+
+  public makePopUp = (url: string) => {
+    return window.open(url, 'slackLogin', 'width=800, height=600');
   };
 
   public closePopUp = (interval: number, popup: Window) => {
@@ -73,12 +83,20 @@ class HomeScreen extends React.Component<Props> {
 
   public render() {
     const { match } = this.props;
+    const allegroURL = process.env.REACT_APP_ALLEGRO_URL;
+
     return (
       <div className="HomeScreenContainer">
         <h1>Welcome to Sharating!!</h1>
         <h2>Share your reviews with {match.url.substring(1)} from: </h2>
         <div className="providers">
-          <div onClick={this.getCodeFromOAuth} className="Provider-container">
+          <div
+            onClick={this.handleClick.bind(this, {
+              name: 'allegro',
+              url: allegroURL
+            })}
+            className="Provider-container"
+          >
             <Provider image={allegroLogo} title="Allegro" />
           </div>
         </div>
