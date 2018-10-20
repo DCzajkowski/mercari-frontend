@@ -8,6 +8,8 @@ phases:
       - aws s3 sync build/ s3://sharatin.gq/ --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --exclude='*' --include='*.html' --acl public-read --sse --delete
       - aws s3 sync build/ s3://sharatin.gq/ --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --exclude='*' --include='service-worker.js' --acl public-read --sse --delete
       - aws s3 sync build/ s3://sharatin.gq/ --cache-control="max-age=604800,public" --exclude='*.html' --exclude='service-worker.js' --acl public-read --sse --delete
+      - aws configure set preview.cloudfront true
+      - aws cloudfront create-invalidation --distribution-id E1ZZ3ZPT5REKJ5 --paths '/*'
   post_build:
     commands:
       - cat /root/.npm/_logs/* || true
