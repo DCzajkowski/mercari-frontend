@@ -2,7 +2,9 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import Provider from '../Provider/Provider';
 import allegroLogo from './Allegro.png';
+import ebayLogo from './Ebay.png';
 import './HomeScreen.css';
+import mercariLogo from './Mercari.png';
 
 interface Props {
   match: {
@@ -12,6 +14,18 @@ interface Props {
 
 interface State {
   allegro: {
+    checked: boolean;
+    logo: string;
+    name: string;
+    url: string;
+  };
+  mercari: {
+    checked: boolean;
+    logo: string;
+    name: string;
+    url: string;
+  };
+  ebay: {
     checked: boolean;
     logo: string;
     name: string;
@@ -30,6 +44,18 @@ class HomeScreen extends React.Component<Props, State> {
         logo: allegroLogo,
         name: 'allegro',
         url: process.env.REACT_APP_ALLEGRO_URL || ''
+      },
+      ebay: {
+        checked: false,
+        logo: ebayLogo,
+        name: 'ebay',
+        url: process.env.REACT_APP_EBAY_URL || ''
+      },
+      mercari: {
+        checked: false,
+        logo: mercariLogo,
+        name: 'mercari',
+        url: process.env.REACT_APP_MERCARI_URL || ''
       },
       userID: -1
     };
@@ -101,7 +127,7 @@ class HomeScreen extends React.Component<Props, State> {
     });
 
   public makePopUp = (url: string) => {
-    return window.open(url, 'slackLogin', 'width=800, height=600');
+    return window.open(url, 'sharating oauth', 'width=800, height=600');
   };
 
   public closePopUp = (interval: number, popup: Window) => {
@@ -245,10 +271,11 @@ class HomeScreen extends React.Component<Props, State> {
           <form method="POST" action={`/api/provider/connect/${service}`}>
             <div className="providers-wrapper">
               {this.renderProvider('allegro')}
+              {this.renderProvider('ebay')}
               {this.renderProvider('allegro')}
-              {this.renderProvider('allegro')}
-              {this.renderProvider('allegro')}
-              {this.renderProvider('allegro')}
+              {this.renderProvider('mercari')}
+              {this.renderProvider('mercari')}
+              {this.renderProvider('ebay')}
             </div>
             <input type="hidden" name="user_id" value={this.state.userID} />
             {this.state.userID !== -1 && <button>Submit</button>}
