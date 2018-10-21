@@ -15,12 +15,15 @@
 
   .providers {
     padding: 0 60px;
-    form {
+
+    .providers-wrapper {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax((224px), 3fr));
       box-sizing: border-box;
       padding: 24px;
       grid-gap: 24px;
+      justify-items: center;
+
       .Provider-container {
         grid-row-start: span 1;
         display: inline-block;
@@ -72,14 +75,22 @@
           cursor: pointer;
         }
       }
+    }
 
-      button {
-        margin-top: 60px;
-        font-size: 40px;
-        grid-row: span 1;
-        grid-column-start: 2;
-        grid-column-end: 3;
-      }
+    button {
+      margin-top: 40px;
+      font-size: 40px;
+      background-color: #47994a;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 1px 1px 5px #afafaf;
     }
   }
 }

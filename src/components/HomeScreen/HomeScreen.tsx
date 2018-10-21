@@ -243,11 +243,13 @@ class HomeScreen extends React.Component<Props, State> {
         <h2>Share your reviews with {service} from: </h2>
         <div className="providers">
           <form method="POST" action={`/api/provider/connect/${service}`}>
-            {this.renderProvider('allegro')}
-            {this.renderProvider('allegro')}
-            {this.renderProvider('allegro')}
-            {this.renderProvider('allegro')}
-            {this.renderProvider('allegro')}
+            <div className="providers-wrapper">
+              {this.renderProvider('allegro')}
+              {this.renderProvider('allegro')}
+              {this.renderProvider('allegro')}
+              {this.renderProvider('allegro')}
+              {this.renderProvider('allegro')}
+            </div>
             <input type="hidden" name="user_id" value={this.state.userID} />
             {this.state.userID !== -1 && <button>Submit</button>}
           </form>
