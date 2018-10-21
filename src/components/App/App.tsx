@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import HomeScreen from '../HomeScreen/HomeScreen';
-import PageNotFoundScreen from '../PageNotFoundScreen/PageNotFoundScreen';
+
+const rendersomething = () => <Redirect to="/allegro" />;
 
 class App extends React.Component {
   public render() {
@@ -9,11 +10,10 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact={true} path="/:provider" component={HomeScreen} />
-          <Route component={PageNotFoundScreen} />
+          <Route render={rendersomething} />
         </Switch>
       </BrowserRouter>
     );
   }
 }
-
 export default App;
