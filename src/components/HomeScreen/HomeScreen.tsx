@@ -317,7 +317,17 @@ class HomeScreen extends React.Component<Props, State> {
               {this.renderProvider('lyft')}
             </div>
             <input type="hidden" name="user_id" value={this.state.userID} />
-            {this.state.userID !== -1 && <button>Submit</button>}
+            {this.state.userID !== -1 && (
+              <input
+                className="button"
+                type="submit"
+                value="Submit"
+                disabled={
+                  Object.keys(this.state).filter(k => this.state[k].checked)
+                    .length === 0
+                }
+              />
+            )}
           </form>
         </div>
       </div>
