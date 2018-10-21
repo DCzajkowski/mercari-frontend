@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import HomeScreen from '../HomeScreen/HomeScreen';
 
-const rendersomething = () => <Redirect to="/allegro" />;
+const rendersomething = () => <Redirect to="/amazon" />;
 
 class App extends React.Component {
   public render() {
