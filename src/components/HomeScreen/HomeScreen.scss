@@ -1,7 +1,7 @@
 .HomeScreenContainer {
   text-align: center;
   background-color: white;
-  color: white;
+  color: black;
   min-height: 100%;
 
   .logo {
@@ -11,6 +11,12 @@
   h1 {
     margin-top: 0;
     background-color: #233233;
+  }
+
+  h2 {
+    i {
+      color: #47994a;
+    }
   }
 
   .providers {

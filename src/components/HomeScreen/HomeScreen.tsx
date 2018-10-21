@@ -64,7 +64,8 @@ class HomeScreen extends React.Component<Props, State> {
         checked: false,
         logo: allegroLogo,
         name: 'allegro',
-        url: process.env.REACT_APP_ALLEGRO_URL || ''
+        url:
+          'https://allegro.pl.allegrosandbox.pl/auth/oauth/authorize?response_type=code&client_id=5689e9043e054e66a473662f37729c83&redirect_uri=https://sharatin.gq/login/callback'
       },
       amazon: {
         checked: false,
@@ -166,6 +167,8 @@ class HomeScreen extends React.Component<Props, State> {
     });
 
   public makePopUp = (url: string) => {
+    // tslint:disable-next-line:no-console
+    console.log(url);
     return window.open(url, 'sharating oauth', 'width=800, height=600');
   };
 
@@ -305,7 +308,10 @@ class HomeScreen extends React.Component<Props, State> {
             />
           </svg>
         </div>
-        <h2>Share your reviews with {service} from: </h2>
+        <h2>
+          Share your reviews with <i>{service}</i>.<br />
+          Pick providers you want to collect reviews from.
+        </h2>
         <div className="providers">
           <form method="POST" action={`/api/provider/connect/${service}`}>
             <div className="providers-wrapper">
