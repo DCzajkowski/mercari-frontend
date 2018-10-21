@@ -2,9 +2,12 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import Provider from '../Provider/Provider';
 import allegroLogo from './Allegro.png';
+import amazonLogo from './Amazon.png';
 import ebayLogo from './Ebay.png';
 import './HomeScreen.css';
+import lyftLogo from './Lyft.png';
 import mercariLogo from './Mercari.png';
+import uberLogo from './Uber.png';
 
 interface Props {
   match: {
@@ -19,6 +22,12 @@ interface State {
     name: string;
     url: string;
   };
+  lyft: {
+    checked: boolean;
+    logo: string;
+    name: string;
+    url: string;
+  };
   mercari: {
     checked: boolean;
     logo: string;
@@ -26,6 +35,18 @@ interface State {
     url: string;
   };
   ebay: {
+    checked: boolean;
+    logo: string;
+    name: string;
+    url: string;
+  };
+  amazon: {
+    checked: boolean;
+    logo: string;
+    name: string;
+    url: string;
+  };
+  uber: {
     checked: boolean;
     logo: string;
     name: string;
@@ -45,17 +66,35 @@ class HomeScreen extends React.Component<Props, State> {
         name: 'allegro',
         url: process.env.REACT_APP_ALLEGRO_URL || ''
       },
+      amazon: {
+        checked: false,
+        logo: amazonLogo,
+        name: 'amazon',
+        url: process.env.REACT_APP_AMAZON_URL || ''
+      },
       ebay: {
         checked: false,
         logo: ebayLogo,
         name: 'ebay',
         url: process.env.REACT_APP_EBAY_URL || ''
       },
+      lyft: {
+        checked: false,
+        logo: lyftLogo,
+        name: 'lyft',
+        url: process.env.REACT_APP_LYFT_URL || ''
+      },
       mercari: {
         checked: false,
         logo: mercariLogo,
         name: 'mercari',
         url: process.env.REACT_APP_MERCARI_URL || ''
+      },
+      uber: {
+        checked: false,
+        logo: uberLogo,
+        name: 'uber',
+        url: process.env.REACT_APP_UBER_URL || ''
       },
       userID: -1
     };
@@ -169,7 +208,7 @@ class HomeScreen extends React.Component<Props, State> {
         <div
           onClick={this.handleClick.bind(this, {
             name: provider.name,
-            url: process.env.REACT_APP_ALLEGRO_URL
+            url: provider.url
           })}
           className="Provider-container"
         >
@@ -272,10 +311,10 @@ class HomeScreen extends React.Component<Props, State> {
             <div className="providers-wrapper">
               {this.renderProvider('allegro')}
               {this.renderProvider('ebay')}
-              {this.renderProvider('allegro')}
+              {this.renderProvider('amazon')}
               {this.renderProvider('mercari')}
-              {this.renderProvider('mercari')}
-              {this.renderProvider('ebay')}
+              {this.renderProvider('uber')}
+              {this.renderProvider('lyft')}
             </div>
             <input type="hidden" name="user_id" value={this.state.userID} />
             {this.state.userID !== -1 && <button>Submit</button>}
